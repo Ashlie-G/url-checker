@@ -20,13 +20,13 @@ p get_urls.call
 #function to get the status of a url, dont forget to specify the type in the params
 get_status = ->(url : String) {
   begin
-    puts "calling #{url}"
+    # puts "calling #{url}" - debugging to see sequence of output
   response = HTTP::Client.get url
   {url, response.status_code}
   rescue e : IO::Error | Socket::Addrinfo::Error #in crystal you can specify normal error or specific
     {url, e}
   ensure
-    puts "called #{url}"
+  #   puts "called #{url}" - debugging to see sequence of output
   end
 }
 #create channel to run concurrently (creating the generator and channel)
@@ -51,11 +51,36 @@ end
     end
   end
 }
-
 #printer
+
+stats = Hash(String, {success: Int32, failure: Int32}).new({success: 0, failure: 0})
 loop do
-  puts result_stream.receive
+  url, result = result_stream.receive
+  current_value = stats[url]
+  case result
+  when Int32
+    if result < 400
+      stats[url] = {
+      success: current_value["success"] + 1,
+      failure: current_value["failure"]
+    }
+    else
+      stats[url] = {
+      success: current_value["success"],
+      failure: current_value["failure"] + 1
+    }
+    end
+  when Exception
+      stats[url] = {
+      success: current_value["success"],
+      failure: current_value["failure"] + 1
+    }
+  end
+  p stats
 end
+
+
+
 #2 workers but one main channel so that both workers are pushing the result to the channel
 # url_generator -> [url] -> worker_0 -> [{url, result}]
 #                         \_worker_1_/                          
