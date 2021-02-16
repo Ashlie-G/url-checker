@@ -17,6 +17,18 @@ get_urls = -> {
 }
 p get_urls.call
 
+#function to get the status of a url, dont forget to specify the type in the params
+get_status = ->(url : String) {
+  begin
+  response = HTTP::Client.get url
+  {url, response.status_code}
+  rescue e : Errno | Socket::Addrinfo::Error #in crystal you can specify normal error or specific
+    {url, e}
+  end
+}
+p get_urls.call #array(string)
+.map(&get_status)
+# p get_status(get_urls.call.first)
 #to get google.com using http client
 # response = HTTP::Client.get "http://www.google.com"
 # p response.status_code
