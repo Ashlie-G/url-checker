@@ -1,18 +1,15 @@
 # url-checker
 
-TODO: Write a description here
+Terminal based tool to check status of set URL's.
+Code along with https://www.twitch.tv/lbarasti
 
 ## Installation
 
-TODO: Write installation instructions here
+`shards install`
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
+`crystal src/url-checker.cr`
 
 ## Contributing
 
