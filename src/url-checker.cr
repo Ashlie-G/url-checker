@@ -78,7 +78,7 @@ loop do
 #   t.add_column("Success") {|n| n[1]}
 #   t.add_column("Failure") {|n| n[2]}
 # end
-  # puts table
+#   puts table
   pp stats
 end
 
