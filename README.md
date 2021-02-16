@@ -1,6 +1,7 @@
 # url-checker
 
 Terminal based tool to check status of set URL's.
+Runs concurrently
 Code along with https://www.twitch.tv/lbarasti
 
 ## Installation
@@ -10,6 +11,17 @@ Code along with https://www.twitch.tv/lbarasti
 ## Usage
 
 `crystal src/url-checker.cr`
+
+#### Current Expected Output
+``` crystal
+["http://google.com", "https://amazon.com", "http://localhost:3000"]
+{"http://google.com" => {success: 1, failure: 0}}
+{"http://google.com" => {success: 1, failure: 0},
+ "http://localhost:3000" => {success: 0, failure: 1}}
+{"http://google.com" => {success: 1, failure: 0},
+ "http://localhost:3000" => {success: 0, failure: 1},
+ "https://amazon.com" => {success: 1, failure: 0}}
+ ```
 
 ## Contributing
 
