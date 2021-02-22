@@ -9,18 +9,30 @@ Code along with https://www.twitch.tv/lbarasti
 `shards install`
 
 ## Usage
-
+`cd url-checker`
 `crystal src/url-checker.cr`
 
 #### Current Expected Output
 ``` crystal
 ["http://google.com", "https://amazon.com", "http://localhost:3000"]
-{"http://google.com" => {success: 1, failure: 0}}
-{"http://google.com" => {success: 1, failure: 0},
- "http://localhost:3000" => {success: 0, failure: 1}}
-{"http://google.com" => {success: 1, failure: 0},
- "http://localhost:3000" => {success: 0, failure: 1},
- "https://amazon.com" => {success: 1, failure: 0}}
++--------------------------+--------------+--------------+
+| Url                      |      Success |      Failure |
++--------------------------+--------------+--------------+
+| http://google.com        |            1 |            0 |
++--------------------------+--------------+--------------+
++--------------------------+--------------+--------------+
+| Url                      |      Success |      Failure |
++--------------------------+--------------+--------------+
+| http://google.com        |            1 |            0 |
+| http://localhost:3000    |            1 |            0 |
++--------------------------+--------------+--------------+
++--------------------------+--------------+--------------+
+| Url                      |      Success |      Failure |
++--------------------------+--------------+--------------+
+| http://google.com        |            1 |            0 |
+| http://localhost:3000    |            1 |            0 |
+| https://amazon.com       |            1 |            0 |
++--------------------------+--------------+--------------+
  ```
 
 ## Contributing
