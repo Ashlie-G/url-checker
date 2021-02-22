@@ -1,12 +1,12 @@
 require "http/client"
 require "yaml"
-# require "tablo"
+require "tablo"
 # reads over the yml file and creates and array of strings
 # p YAML.parse(File.read("../urls.yml"))["urls"].as_a.map(&.as_s).class
 
 #the above code reafactored to a proc
 get_urls = -> {
-  file_lines = File.read("../urls.yml")
+  file_lines = File.read("./urls.yml")
   YAML.parse(file_lines)["urls"].as_a.map(&.as_s)
 }
 p get_urls.call
@@ -70,16 +70,16 @@ loop do
       failure: current_value["failure"] + 1
     }
   end
-#   data = stats.map {|key, val|
-#   [key, val["success"], val["failure"]]
-# }
-# table = Tablo::Table.new(data) do |t|
-#   t.add_column("Url", width: 24) {|n| n[0]}
-#   t.add_column("Success") {|n| n[1]}
-#   t.add_column("Failure") {|n| n[2]}
-# end
-#   puts table
-  pp stats
+  data = stats.map {|key, val|
+  [key, val["success"], val["failure"]]
+}
+table = Tablo::Table.new(data) do |t|
+  t.add_column("Url", width: 24) {|n| n[0]}
+  t.add_column("Success") {|n| n[1]}
+  t.add_column("Failure") {|n| n[2]}
+end
+  puts table
+  # pp stats
 end
 
 
